@@ -1,0 +1,37 @@
+{
+  "name": "eportofolio-ppg-2026",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "db:init": "tsx scripts/init-db.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:migrasi-terbimbing": "tsx scripts/migrasi-terbimbing.ts",
+    "db:migrasi-fase6": "tsx scripts/migrasi-fase6.ts",
+    "db:migrasi-analisis-siklus": "tsx scripts/migrasi-analisis-siklus.ts",
+    "dokumentasi:folder": "tsx scripts/folder-dokumentasi.ts",
+    "dokumentasi:kompres": "tsx scripts/kompres-dokumentasi.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "dotenv": "^18.0.4",
+    "framer-motion": "^13.4.4",
+    "next": "^15.5.26",
+    "next-auth": "^4.24.15",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,26 @@
+# Menyembunyikan konfigurasi lokal dan rahasia
+.env.local
+.env*.local
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+
+# Turunan TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Hasil audit tampilan (screenshot dari scripts/audit-tampilan.mjs)
+.cek-tema/
+
+# Sisa file SQLite lokal (0 byte, tidak dipakai — Turso remote)
+auth
+auth-wal
+
+# OS / editor
+.DS_Store
+Thumbs.db

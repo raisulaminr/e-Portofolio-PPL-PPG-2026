@@ -1,0 +1,194 @@
+@import 'tailwindcss';
+
+/* Tema dikendalikan kelas .dark pada <html>. Default GELAP — kanvas near-black
+   dengan grid halus, sesuai acuan visual DESIGN.md (space-visual-ideation-workspace).
+   Kelas .dark dilepas oleh skrip kecil di layout kalau pengunjung memilih tema terang. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Mode terang = turunan kita. DESIGN.md hanya mendefinisikan satu mode (gelap);
+   peran warnanya tetap terpisah (background / surface / border / text), hanya
+   kontrasnya dibalik. */
+:root {
+  --background: #f1f5f9;
+  --surface: #ffffff;
+  --surface-muted: #e2e8f0;
+  --border: #cbd5e1;
+  --foreground: #111827;
+  --muted: #4b5563;
+  --primary: #13a8ff;
+  --primary-foreground: #111827;
+  --primary-teks: #0369a1;
+  --accent: #aa71ff;
+  --accent-teks: #6d28d9;
+  --ring: #13a8ff;
+  --success-soft: #e0f2fe;
+  --success: #0369a1;
+  --warning-soft: #ede9fe;
+  --warning: #6d28d9;
+  --grid-line: rgb(17 24 39 / 0.06);
+  --card-shadow: 0 1px 2px rgb(10 15 13 / 0.04), 0 2px 6px rgb(10 15 13 / 0.06);
+  --lift-shadow: 0 12px 26px -14px rgb(10 15 13 / 0.22);
+}
+
+/* Mode gelap = nilai resmi DESIGN.md + kanvas near-black dari acuan visual. */
+.dark {
+  --background: #0a0a0a;
+  --surface: #27272a;
+  --surface-muted: #18181b;
+  --border: #27272a;
+  --foreground: #f1f5f9;
+  --muted: #a1a1aa;
+  --primary: #13a8ff;
+  --primary-foreground: #111827;
+  --primary-teks: #7cc9ff;
+  --accent: #aa71ff;
+  --accent-teks: #c1a0ff;
+  --ring: #13a8ff;
+  --success-soft: rgb(19 168 255 / 0.16);
+  --success: #7cc9ff;
+  --warning-soft: rgb(170 113 255 / 0.18);
+  --warning: #c1a0ff;
+  --grid-line: rgb(255 255 255 / 0.045);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 2px 8px rgb(0 0 0 / 0.4);
+  --lift-shadow: 0 16px 32px -16px rgb(0 0 0 / 0.7);
+}
+
+/* Dipetakan sebagai warna/radius/font Tailwind supaya kelas seperti bg-surface,
+   text-muted, border-border, bg-note-mint, atau rounded-card otomatis ikut
+   berganti saat tema berubah. */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-teks: var(--primary-teks);
+  --color-accent: var(--accent);
+  --color-accent-teks: var(--accent-teks);
+  --color-ring: var(--ring);
+  --color-success-soft: var(--success-soft);
+  --color-success: var(--success);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning: var(--warning);
+
+  /* Sticky note dari acuan visual — pastel dengan teks gelap (lolos AA).
+     Hanya untuk note/aksen; tidak menggantikan peran primary/accent. */
+  --color-note-mint: #c7f3df;
+  --color-note-peach: #ffd9c4;
+  --color-note-kuning: #fff0a6;
+  --color-note-pink: #ffc9e6;
+  --color-note-biru: #cfebff;
+  --color-note-teks: #111827;
+  /* Strip "tape" di atas sticky note. */
+  --color-tape: rgb(255 255 255 / 0.45);
+
+  /* Radius sesuai token `rounded` DESIGN.md: card 4px, control 12px, pill 9999px. */
+  --radius-card: 4px;
+  --radius-control: 12px;
+
+  --font-sans: var(--font-patrick), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-chewy), var(--font-patrick), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --animate-pendar-a: pendar-a 26s ease-in-out infinite;
+  --animate-pendar-b: pendar-b 32s ease-in-out infinite;
+
+  /* Bayangan kartu: statis halus (DESIGN.md "shadow depth") + versi terangkat saat hover. */
+  --shadow-card: var(--card-shadow);
+  --shadow-lift: var(--lift-shadow);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Transisi pergantian tema.
+   Kelas `.tema-beralih` hanya dipasang sesaat oleh ThemeToggle saat pengunjung
+   menekan tombol tema, jadi seluruh permukaan/border/teks ikut memudar bersama —
+   tanpa membuat setiap hover ikut melambat. Ditulis di luar @layer sehingga
+   menang atas utilitas `transition-*` selama jendela transisi ini. */
+.tema-beralih *,
+.tema-beralih *::before,
+.tema-beralih *::after {
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease,
+    fill 250ms ease,
+    stroke 250ms ease,
+    outline-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tema-beralih *,
+  .tema-beralih *::before,
+  .tema-beralih *::after {
+    transition: none;
+  }
+}
+
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Latar kanvas (components/KanvasLatar.tsx): pola grid halus seperti acuan
+   visual DESIGN.md. Digambar dari dua gradient berulang supaya murah — tanpa
+   elemen per garis dan tanpa filter.
+   --------------------------------------------------------------------------- */
+.latar-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Pendar ambient yang sangat lambat — hanya transform/opacity supaya murah di GPU.
+   Animasi dipasang lewat kelas `motion-safe:animate-*` di komponen, sehingga
+   pengunjung dengan prefers-reduced-motion: reduce tidak mendapatkannya. */
+@keyframes pendar-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(3%, -4%, 0) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes pendar-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(-4%, 3%, 0) scale(1.12);
+    opacity: 0.8;
+  }
+}
