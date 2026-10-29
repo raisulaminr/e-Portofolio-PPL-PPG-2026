@@ -24,3 +24,5 @@ auth-wal
 # OS / editor
 .DS_Store
 Thumbs.db
+.vercel
+.env*
