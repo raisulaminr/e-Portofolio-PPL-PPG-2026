@@ -231,6 +231,24 @@ export default async function BerandaPage() {
         </Panel>
       </FadeIn>
 
+      {/* Seminar PPG: slide presentasi statis, diisi di app/seminar/page.tsx. */}
+      <FadeIn delay={0.1}>
+        <Panel
+          judul="Seminar PPG"
+          deskripsi="Slide presentasi seminar yang dipaparkan di depan dosen penguji."
+          aksi={
+            <Tombol href="/seminar" varian="garis" className="px-3.5 py-1.5">
+              Lihat Slide
+            </Tombol>
+          }
+        >
+          <p className="text-base leading-[1.6] text-muted">
+            Slide disajikan langsung di halaman seminar beserta identitas kegiatan, ringkasan
+            materi, dan tautan unduhannya.
+          </p>
+        </Panel>
+      </FadeIn>
+
       <FadeIn delay={0.1}>
         <section>
           <h2 className="text-xl font-medium text-foreground sm:text-2xl">

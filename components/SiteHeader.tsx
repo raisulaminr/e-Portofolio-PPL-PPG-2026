@@ -7,13 +7,14 @@ import { useState } from 'react';
 import ThemeToggle from '@/components/ThemeToggle';
 import Tombol from '@/components/Tombol';
 
-/** Navigasi utama: tiga modul penilaian + Refleksi — PRD bagian 4.1. */
+/** Navigasi utama: tiga modul penilaian, Refleksi, dan Seminar — PRD bagian 4.1. */
 const NAV_UTAMA = [
   { href: '/', label: 'Beranda' },
   { href: '/topik-3', label: 'Topik 3' },
   { href: '/uts', label: 'UTS' },
   { href: '/uas', label: 'UAS' },
   { href: '/refleksi', label: 'Refleksi' },
+  { href: '/seminar', label: 'Seminar' },
 ] as const;
 
 /** Profil naik jadi tombol aksi kanan, seperti "START FREE" pada acuan visual. */

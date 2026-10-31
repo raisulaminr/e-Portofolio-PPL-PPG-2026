@@ -93,6 +93,26 @@ export function keSematan(url: string | null | undefined): Sematan | null {
     return { bentuk: 'dokumen', url: `https://docs.google.com/${cocok[1]}/d/${cocok[2]}/preview` };
   }
 
+  // Canva: /design/<ID>/<slug>/view atau /edit → bentuk embed `?embed`.
+  // Slug WAJIB ikut: tanpa slug Canva membalas 303 ke /login, jadi iframe hanya
+  // menampilkan ikon dokumen rusak. Tautan Canva tanpa slug karena itu tidak
+  // disematkan — pemanggil jatuh ke kartu tautan.
+  if (host === 'canva.com' || host === 'canva.site') {
+    const segmen = parsed.pathname.split('/').filter(Boolean);
+    const halaman = segmen[segmen.length - 1];
+    const designId = id(segmen[1] ?? null);
+    const slug = id(segmen[2] ?? null);
+
+    if (segmen[0] !== 'design' || !designId || !slug) return null;
+    if (halaman !== 'view' && halaman !== 'edit') return null;
+    if (slug === halaman) return null;
+
+    return {
+      bentuk: 'dokumen',
+      url: `https://www.canva.com/design/${designId}/${slug}/view?embed`,
+    };
+  }
+
   return null;
 }
 
